@@ -66,6 +66,6 @@
     <allow-intent href="market:*" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="android-minSdkVersion" value="28" />
-    <preference name="phonegap-version" value="cli-6.5.0" />
+    <preference name="phonegap-version" value="cli-8.1.1" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
 </widget>
