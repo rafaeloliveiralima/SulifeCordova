@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /*
        Licensed to the Apache Software Foundation (ASF) under one
        or more contributor license agreements.  See the NOTICE file
@@ -20,8 +22,8 @@
 var path = require('path');
 var emulator = require('./emulator');
 var device = require('./device');
-var PackageType = require('./PackageType');
-const { CordovaError, events } = require('cordova-common');
+var Q = require('q');
+var events = require('cordova-common').events;
 
 function getInstallTarget (runOptions) {
     var install_target;
@@ -52,7 +54,7 @@ module.exports.run = function (runOptions) {
     var self = this;
     var install_target = getInstallTarget(runOptions);
 
-    return Promise.resolve().then(function () {
+    return Q().then(function () {
         if (!install_target) {
             // no target given, deploy to device if available, otherwise use the emulator.
             return device.list().then(function (device_list) {
@@ -94,7 +96,7 @@ module.exports.run = function (runOptions) {
                             });
                         }
                     }
-                    return Promise.reject(new CordovaError(`Target '${install_target}' not found, unable to run project`));
+                    return Q.reject('Target \'' + install_target + '\' not found, unable to run project');
                 });
             });
         });
@@ -102,14 +104,6 @@ module.exports.run = function (runOptions) {
         return new Promise((resolve) => {
             const builder = require('./builders/builders').getBuilder();
             const buildOptions = require('./build').parseBuildOptions(runOptions, null, self.root);
-
-            // Android app bundles cannot be deployed directly to the device
-            if (buildOptions.packageType === PackageType.BUNDLE) {
-                const packageTypeErrorMessage = 'Package type "bundle" is not supported during cordova run.';
-                events.emit('error', packageTypeErrorMessage);
-                throw packageTypeErrorMessage;
-            }
-
             resolve(builder.fetchBuildResults(buildOptions.buildType, buildOptions.arch));
         }).then(function (buildResults) {
             if (resolvedTarget && resolvedTarget.isEmulator) {

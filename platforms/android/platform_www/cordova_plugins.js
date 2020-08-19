@@ -57,6 +57,22 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
+      "id": "cordova-plugin-dialogs.notification",
+      "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+      "pluginId": "cordova-plugin-dialogs",
+      "merges": [
+        "navigator.notification"
+      ]
+    },
+    {
+      "id": "cordova-plugin-dialogs.notification_android",
+      "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
+      "pluginId": "cordova-plugin-dialogs",
+      "merges": [
+        "navigator.notification"
+      ]
+    },
+    {
       "id": "cordova-plugin-file.DirectoryEntry",
       "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
       "pluginId": "cordova-plugin-file",
@@ -399,27 +415,12 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "window.StatusBar"
       ]
-    },
-    {
-      "id": "cordova-plugin-dialogs.notification",
-      "file": "plugins/cordova-plugin-dialogs/www/notification.js",
-      "pluginId": "cordova-plugin-dialogs",
-      "merges": [
-        "navigator.notification"
-      ]
-    },
-    {
-      "id": "cordova-plugin-dialogs.notification_android",
-      "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
-      "pluginId": "cordova-plugin-dialogs",
-      "merges": [
-        "navigator.notification"
-      ]
     }
   ];
   module.exports.metadata = {
     "cordova-plugin-camera": "4.1.0",
     "cordova-plugin-device-orientation": "2.0.1",
+    "cordova-plugin-dialogs": "1.2.1",
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-file-transfer": "1.7.1",
     "cordova-plugin-geolocation": "4.0.2",
@@ -432,7 +433,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-splashscreen": "6.0.0",
     "cordova-plugin-statusbar": "2.4.3",
     "cordova-plugin-vibration": "3.1.1",
-    "cordova-plugin-whitelist": "1.3.4",
-    "cordova-plugin-dialogs": "1.2.1"
+    "cordova-plugin-whitelist": "1.3.4"
   };
 });
