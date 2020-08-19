@@ -29,6 +29,9 @@
     "cordova-plugin-inappbrowser": {
       "PACKAGE_NAME": "com.tecnologia.sulife2"
     },
+    "cordova-plugin-ios-camera-permissions": {
+      "PACKAGE_NAME": "com.tecnologia.sulife2"
+    },
     "cordova-plugin-media": {
       "PACKAGE_NAME": "com.tecnologia.sulife2"
     },
@@ -48,9 +51,6 @@
       "PACKAGE_NAME": "com.tecnologia.sulife2"
     },
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.tecnologia.sulife2"
-    },
-    "cordova-plugin-ios-camera-permissions": {
       "PACKAGE_NAME": "com.tecnologia.sulife2"
     }
   },

@@ -1077,6 +1077,7 @@
 				destinationType: navigator.camera.DestinationType.FILE_URI,
 				sourceType: navigator.camera.PictureSourceType.CAMERA
 			 });
+			 // navigator.camera.DestinationType.FILE_URI
 			}
 			else
 			{
@@ -1086,8 +1087,11 @@
 				quality: 25,
 				destinationType: navigator.camera.DestinationType.FILE_URI,
 				sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+
 				});
-			
+//				destinationType: navigator.camera.DestinationType.FILE_URI,
+			//sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+				
 			}
 		}
 		else
@@ -1097,8 +1101,12 @@
 			}, {
 			quality: 50,
 			destinationType: navigator.camera.DestinationType.FILE_URI,
-			sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+			sourceType: navigator.camera.PictureSourceType.CAMERA
 			});
+			//			destinationType: navigator.camera.DestinationType.FILE_URI,
+			//			sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+
+			
 		}
 		
 	}
