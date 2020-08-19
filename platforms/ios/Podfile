@@ -2,7 +2,7 @@
 
 platform :ios, '10.0'
 
-target 'C:\Users\rafae\SuLifeCordova\platforms\ios\SulifeCordova' do
-	project 'C:\Users\rafae\SuLifeCordova\platforms\ios\SulifeCordova.xcodeproj'
+target 'C:\Users\rafae\Documents\GitHub\SulifeCordova\platforms\ios\SulifeCordova' do
+	project 'C:\Users\rafae\Documents\GitHub\SulifeCordova\platforms\ios\SulifeCordova.xcodeproj'
 
 end

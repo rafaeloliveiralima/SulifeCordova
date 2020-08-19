@@ -33,6 +33,30 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
+      "id": "cordova-plugin-device-orientation.CompassError",
+      "file": "plugins/cordova-plugin-device-orientation/www/CompassError.js",
+      "pluginId": "cordova-plugin-device-orientation",
+      "clobbers": [
+        "CompassError"
+      ]
+    },
+    {
+      "id": "cordova-plugin-device-orientation.CompassHeading",
+      "file": "plugins/cordova-plugin-device-orientation/www/CompassHeading.js",
+      "pluginId": "cordova-plugin-device-orientation",
+      "clobbers": [
+        "CompassHeading"
+      ]
+    },
+    {
+      "id": "cordova-plugin-device-orientation.compass",
+      "file": "plugins/cordova-plugin-device-orientation/www/compass.js",
+      "pluginId": "cordova-plugin-device-orientation",
+      "clobbers": [
+        "navigator.compass"
+      ]
+    },
+    {
       "id": "cordova-plugin-file.DirectoryEntry",
       "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
       "pluginId": "cordova-plugin-file",
@@ -387,46 +411,23 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "merges": [
         "navigator"
       ]
-    },
-    {
-      "id": "cordova-plugin-device-orientation.CompassError",
-      "file": "plugins/cordova-plugin-device-orientation/www/CompassError.js",
-      "pluginId": "cordova-plugin-device-orientation",
-      "clobbers": [
-        "CompassError"
-      ]
-    },
-    {
-      "id": "cordova-plugin-device-orientation.CompassHeading",
-      "file": "plugins/cordova-plugin-device-orientation/www/CompassHeading.js",
-      "pluginId": "cordova-plugin-device-orientation",
-      "clobbers": [
-        "CompassHeading"
-      ]
-    },
-    {
-      "id": "cordova-plugin-device-orientation.compass",
-      "file": "plugins/cordova-plugin-device-orientation/www/compass.js",
-      "pluginId": "cordova-plugin-device-orientation",
-      "clobbers": [
-        "navigator.compass"
-      ]
     }
   ];
   module.exports.metadata = {
     "cordova-plugin-camera": "4.1.0",
-    "cordova-plugin-whitelist": "1.3.4",
+    "cordova-plugin-device-orientation": "2.0.1",
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-file-transfer": "1.7.1",
     "cordova-plugin-geolocation": "4.0.2",
     "cordova-plugin-globalization": "1.11.0",
     "cordova-plugin-inappbrowser": "4.0.0",
+    "cordova-plugin-ios-camera-permissions": "1.2.0",
     "cordova-plugin-media": "5.0.3",
     "cordova-plugin-media-capture": "3.0.3",
     "cordova-plugin-network-information": "2.0.2",
     "cordova-plugin-splashscreen": "6.0.0",
     "cordova-plugin-statusbar": "2.4.3",
     "cordova-plugin-vibration": "3.1.1",
-    "cordova-plugin-device-orientation": "2.0.1"
+    "cordova-plugin-whitelist": "1.3.4"
   };
 });

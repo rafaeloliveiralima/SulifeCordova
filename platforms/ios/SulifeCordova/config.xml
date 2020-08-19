@@ -22,6 +22,9 @@
     <feature name="Camera">
         <param name="ios-package" value="CDVCamera" />
     </feature>
+    <feature name="Compass">
+        <param name="ios-package" value="CDVCompass" />
+    </feature>
     <feature name="File">
         <param name="ios-package" value="CDVFile" />
         <param name="onload" value="true" />
@@ -54,9 +57,6 @@
     </feature>
     <feature name="Vibration">
         <param name="ios-package" value="CDVVibration" />
-    </feature>
-    <feature name="Compass">
-        <param name="ios-package" value="CDVCompass" />
     </feature>
     <name>SulifeCordova</name>
     <description>
