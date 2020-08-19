@@ -8,8 +8,8 @@
         Apache Cordova Team
     </author>
     <content src="index.html" />
-	<preference name="android-minSdkVersion" value="29" />
-	<preference name="phonegap-version" value="cli-8.0.0" />
+	<preference name="android-minSdkVersion" value="28" />
+	<preference name="phonegap-version" value="cli-6.5.0" />
 	
 	<preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <plugin name="cordova-plugin-camera" source="npm" spec="^4.1.0" />
