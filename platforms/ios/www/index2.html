@@ -4,6 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta http-equiv="Content-Security-Policy" 
+    content="default-src * 'self' 'unsafe-inline' data: gap: 'unsafe-eval';
+    style-src * 'self' 'unsafe-inline'; 
+    connect-src * ; 
+    script-src * 'self' 'unsafe-inline'; 
+    media-src *">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=yes" />
@@ -14,6 +21,9 @@
 	<meta http-equiv="expires" content="0" />
 	<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
 	<meta http-equiv="pragma" content="no-cache" />	
+	
+	
+<!--	<meta http-equiv="Content-Security-Policy" content="default-src * gap:;font-src 'self' data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; media-src *; img-src * filesystem: data:">	-->
 
     <meta name="description" content="">
     <meta name="author" content="">
@@ -78,8 +88,8 @@
     <!-- ============================================================== -->
     <div class="preloader">
         <div class="loader">
-            <!--<div class="loader__figure"></div>
-            <p class="loader__label">Su Life</p>-->
+            <div class="loader__figure"></div>
+            <p class="loader__label">Su Life</p>
         </div>
     </div>
     <!-- ============================================================== -->
@@ -246,6 +256,7 @@
 	
 	}
 	let map, infoWindow;
+	
 	$(document).ready(function(){
 		$("#page_index").load("page_index.html");
 		document.getElementById('div_name').innerHTML=window.localStorage.getItem("name");
@@ -361,35 +372,51 @@
 	
 	function addMantenance()
 	{
-		
-		$.post("https://tempustecnologia.com/sulife/controller/exec.maintenance.php",
+		if (
+			(document.getElementById('edtdescription').value!='') && 
+			(document.getElementById('edtdescription').value!='')
+		)
 		{
-		  op: "IAPP",
-		  iduser:  window.localStorage.getItem("iduser"),
-		  edtdescription: document.getElementById('edtdescription').value,
-		  edttags: document.getElementById('edttags').value
-		},
-		function(data,status){
-			if (data.trim()=='OK')
+	
+			$.post("https://tempustecnologia.com/sulife/controller/exec.maintenance.php",
 			{
-				navigator.notification.alert(
-						'Added successfully.',  // message
-						alertDismissed,         // callback
-						'Success',            // title
-						'OK'                  // buttonName
-				);
-				getPage('followups',false);
-			}
-			else
-			{
-				navigator.notification.alert(
-						'Unable to add.',  // message
-						alertDismissed,         // callback
-						'error',            // title
-						'OK'                  // buttonName
-				);				
-			}
-		});
+			  op: "IAPP",
+			  iduser:  window.localStorage.getItem("iduser"),
+			  edtdescription: document.getElementById('edtdescription').value,
+			  edttags: document.getElementById('edttags').value
+			},
+			function(data,status){
+				//alert(data);
+				if (data.trim()=='OK')
+				{
+					navigator.notification.alert(
+							'Added successfully.',  // message
+							alertDismissed,         // callback
+							'Success',            // title
+							'OK'                  // buttonName
+					);
+					getPage('followups',false);
+				}
+				else
+				{
+					navigator.notification.alert(
+							'Unable to add.',  // message
+							alertDismissed,         // callback
+							'error',            // title
+							'OK'                  // buttonName
+					);				
+				}
+			});
+		}
+		else
+		{
+			navigator.notification.alert(
+							'Fill in the fields.',  // message
+							alertDismissed,         // callback
+							'Warning',            // title
+							'OK'                  // buttonName
+			);		
+		}
 	};
 	
 	//
@@ -1059,6 +1086,31 @@
 
 	var id_ ;
 	
+	
+	// video
+	function pegaVideo(id)
+	{
+		navigator.notification.alert(
+			'This function is not allowed yet.',  // message
+			alertDismissed,         // callback
+			'Warning',            // title
+			'OK'                  // buttonName
+		);		
+	
+	}
+	
+	// audio
+	function pegaAudio(id)
+	{
+		navigator.notification.alert(
+			'This function is not allowed yet.',  // message
+			alertDismissed,         // callback
+			'Warning',            // title
+			'OK'                  // buttonName
+		);	
+	}
+	
+	// fotografia
 	function getImage(tipo,funcao,id)
 	{
 		id_ = id;
@@ -1077,6 +1129,7 @@
 				destinationType: navigator.camera.DestinationType.FILE_URI,
 				sourceType: navigator.camera.PictureSourceType.CAMERA
 			 });
+			 // navigator.camera.DestinationType.FILE_URI
 			}
 			else
 			{
@@ -1086,8 +1139,11 @@
 				quality: 25,
 				destinationType: navigator.camera.DestinationType.FILE_URI,
 				sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+
 				});
-			
+//				destinationType: navigator.camera.DestinationType.FILE_URI,
+			//sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+				
 			}
 		}
 		else
@@ -1099,6 +1155,10 @@
 			destinationType: navigator.camera.DestinationType.FILE_URI,
 			sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
 			});
+			//			destinationType: navigator.camera.DestinationType.FILE_URI,
+			//			sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+
+			
 		}
 		
 	}
@@ -1155,7 +1215,8 @@
 									'OK'                  // buttonName
 				);
 				
-			console.log(JSON.stringify(result));
+				getPage('followups',false);
+				console.log(JSON.stringify(result));
 		}, function(error){
 				//alert(JSON.stringify(error));
 				navigator.notification.alert(

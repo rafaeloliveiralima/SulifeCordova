@@ -123,6 +123,14 @@
                             <button id='btnenviarsenha' class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" style='border-width:0px;background-color:#61233C;' type="button">Reset</button>
                         </div>
                     </div>
+					
+                    <div class="form-group m-b-0">
+                        <div class="col-sm-12 text-center">
+                            <p>Already have an account? <a href="javascript:void(0)" id='to-login2' class="text-primary m-l-5"><b>Sign In</b></a></p>
+                        </div>
+                    </div>
+					
+					
                 </form>
 		   </div>
 </div>		
@@ -194,11 +202,11 @@
             </div>
         </div>
     </section>	
-	<div id="deviceready" class="blink">
+	<!--<div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
     </div>
-	
+	-->
 <!--	<div class="app">
 					<div id="deviceready" class="blink">
 						<p class="event listening">Conectando</p>
@@ -228,79 +236,110 @@
 		
 		$(document).ready(function(){
 		
-		  $("#btnenviarsenha").click(function(){
-		  
-			$.post("https://tempustecnologia.com/sulife/controller/exec.register.php",
+		  $("#btnenviarsenha").click(function()
+		  {
+			if (
+					(document.getElementById('edtreenviarsenha').value!='') 
+				)
 			{
-			  op: "REENVIARSENHA",
-			  edtreenviarsenha: document.getElementById('edtreenviarsenha').value
-			},
-			function(data,status){
-				if (data.trim()=='OK')
+			  
+			  
+				$.post("https://tempustecnologia.com/sulife/controller/exec.register.php",
 				{
-					navigator.notification.alert(
-						'Message sent to registered email.',  // message
-						alertDismissed,         // callback
-						'Success',            // title
-						'OK'                  // buttonName
-					);				
-				}
-				else
-				{
-					navigator.notification.alert(
-						'Could not send email.',  // message
-						alertDismissed,         // callback
-						'Warning',            // title
-						'OK'                  // buttonName
-					);				
-				}
-			});
+				  op: "REENVIARSENHA",
+				  edtreenviarsenha: document.getElementById('edtreenviarsenha').value
+				},
+				function(data,status){
+					if (data.trim()=='OK')
+					{
+						navigator.notification.alert(
+							'Message sent to registered email.',  // message
+							alertDismissed,         // callback
+							'Success',            // title
+							'OK'                  // buttonName
+						);				
+					}
+					else
+					{
+						navigator.notification.alert(
+							'Could not send email.',  // message
+							alertDismissed,         // callback
+							'Warning',            // title
+							'OK'                  // buttonName
+						);				
+					}
+				});
+			}
+			else
+			{
+				navigator.notification.alert(
+							'Check the fields.',  // message
+							alertDismissed,         // callback
+							'Warning',            // title
+							'OK'                  // buttonName
+				);	
+			
+			}
+			
+			
 		  });
 		  
 		
 		  $("#btnenviar").click(function(){
-		  
-			$.post("https://tempustecnologia.com/sulife/controller/exec.register.php",
+			if (
+					(document.getElementById('edtuser').value!='') &&
+					(document.getElementById('edtpassword').value!='')
+				)
+			{			  
+				$.post("https://tempustecnologia.com/sulife/controller/exec.register.php",
+				{
+				  op: "LOGINAPP",
+				  edtuser: document.getElementById('edtuser').value,
+				  edtpassword: document.getElementById('edtpassword').value
+				},
+				function(data,status){
+					var res = data.split("|");
+					iduser = res[0];
+					name = res[1];
+					studentnumber = res[2];
+					idresidence = res[3];
+					surname = res[4];
+					phonenumber = res[5];
+					gender = res[6];
+				
+				
+					if (data.trim()!='ERRO')
+					{
+						
+						window.localStorage.setItem("iduser", iduser);
+						window.localStorage.setItem("name",name);
+						window.localStorage.setItem("studentnumber",studentnumber);
+						window.localStorage.setItem("idresidence",idresidence);
+						window.localStorage.setItem("surname",surname);
+						window.localStorage.setItem("phonenumber",phonenumber);
+						window.localStorage.setItem("gender",gender);
+						window.location.href = 'index2.html';
+					}
+					else
+					{
+						navigator.notification.alert(
+							'Could not log in.',  // message
+							alertDismissed,         // callback
+							'Warning',            // title
+							'OK'                  // buttonName
+						);				
+					}
+				});
+			}
+			else
 			{
-			  op: "LOGINAPP",
-			  edtuser: document.getElementById('edtuser').value,
-			  edtpassword: document.getElementById('edtpassword').value
-			},
-			function(data,status){
-				var res = data.split("|");
-				iduser = res[0];
-				name = res[1];
-				studentnumber = res[2];
-				idresidence = res[3];
-				surname = res[4];
-				phonenumber = res[5];
-				gender = res[6];
-			
-			
-				if (data.trim()!='ERRO')
-				{
-					
-					window.localStorage.setItem("iduser", iduser);
-					window.localStorage.setItem("name",name);
-					window.localStorage.setItem("studentnumber",studentnumber);
-					window.localStorage.setItem("idresidence",idresidence);
-					window.localStorage.setItem("surname",surname);
-					window.localStorage.setItem("phonenumber",phonenumber);
-					window.localStorage.setItem("gender",gender);
-					window.location.href = 'index2.html';
-				}
-				else
-				{
-					navigator.notification.alert(
-						'Could not log in.',  // message
-						alertDismissed,         // callback
-						'Warning',            // title
-						'OK'                  // buttonName
-					);				
-				}
-			});
-			
-			
+				navigator.notification.alert(
+							'Fill in the username and password fields.',  // message
+							alertDismissed,         // callback
+							'Warning',            // title
+							'OK'                  // buttonName
+				);	
+			}
 			
 		  });
 		  
@@ -308,54 +347,65 @@
 		  
 		  
 		   $("#btnregister").click(function(){
-			if (document.getElementById('chboxAgree').checked==false)
+			if (
+					(document.getElementById('edtname').value!='') &&
+					(document.getElementById('edtsurname').value!='') &&
+					(document.getElementById('edtstudentnumber').value!='') &&
+					(document.getElementById('edtphonenumber').value!='') &&
+					(document.getElementById('cmboxresidence').value!='') &&
+					(document.getElementById('edtpassword').value!='') &&
+					(document.getElementById('chboxAgree').checked==true) &&
+					(
+						(document.getElementById('edtpassword').value==document.getElementById('edtconfirmpassword').value)
+					)
+				)
 			{
-				navigator.notification.alert(
-						'You need to agree the term.',  // message
-						alertDismissed,         // callback
-						'Warning',            // title
-						'OK'                  // buttonName
-					);	
-			
+				$.post("https://tempustecnologia.com/sulife/controller/exec.register.php",
+				{
+				  op: "IAPP",
+				  edtname: document.getElementById('edtname').value,
+				  edtsurname: document.getElementById('edtsurname').value,
+				  edtstudentnumber: document.getElementById('edtstudentnumber').value,
+				  edtphonenumber: document.getElementById('edtphonenumber').value,
+				  cmboxresidence: document.getElementById('cmboxresidence').value,
+				  edtpassword: document.getElementById('edtpassword2').value,
+				  edtconfirmpassword: document.getElementById('edtconfirmpassword').value,
+				  chboxagree: document.getElementById('chboxAgree').value 
+				},
+				function(data,status){
+					if (data.trim()=='OK')
+					{
+						navigator.notification.alert(
+							'Registered successfully.',  // message
+							alertDismissed,         // callback
+							'Success',            // title
+							'OK'                  // buttonName
+						);	
+						$("#wrapper2").slideUp();
+						$("#wrapper").fadeIn();
+					}
+					else
+					{
+						navigator.notification.alert(
+							'Unable to register.',  // message
+							alertDismissed,         // callback
+							'Error',            // title
+							'OK'                  // buttonName
+						);	
+					}
+				});
 			}
 			else
 			{
-		   
-			$.post("https://tempustecnologia.com/sulife/controller/exec.register.php",
-			{
-			  op: "IAPP",
-			  edtname: document.getElementById('edtname').value,
-			  edtsurname: document.getElementById('edtsurname').value,
-			  edtstudentnumber: document.getElementById('edtstudentnumber').value,
-			  edtphonenumber: document.getElementById('edtphonenumber').value,
-			  cmboxresidence: document.getElementById('cmboxresidence').value,
-			  edtpassword: document.getElementById('edtpassword2').value,
-			  edtconfirmpassword: document.getElementById('edtconfirmpassword').value,
-			  chboxagree: document.getElementById('chboxAgree').value 
-			},
-			function(data,status){
-				if (data.trim()=='OK')
-				{
-					navigator.notification.alert(
-						'Registered successfully.',  // message
-						alertDismissed,         // callback
-						'Success',            // title
-						'OK'                  // buttonName
-					);	
-					$("#wrapper2").slideUp();
-					$("#wrapper").fadeIn();
-				}
-				else
-				{
-					navigator.notification.alert(
-						'Unable to register.',  // message
-						alertDismissed,         // callback
-						'Error',            // title
-						'OK'                  // buttonName
-					);	
-				}
-			});
+				navigator.notification.alert(
+							'Check the fields. All fields are mandatory',  // message
+							alertDismissed,         // callback
+							'Warning',            // title
+							'OK'                  // buttonName
+						);	
+			
 			}
+			
 		  });
 		  
 		});
@@ -395,7 +445,12 @@
             $("#wrapper2").slideUp();
             $("#wrapper").fadeIn();
         });
-
+		
+		 $('#to-login2').on("click", function() {
+            $("#recoverform").slideUp();
+            $("#loginform").fadeIn();
+        });
+		
 	</script>
     
 </body>
