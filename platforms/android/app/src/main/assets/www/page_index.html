@@ -20,11 +20,19 @@
 							 </form>
 							 </div>
 							 </div>
+
+							 
+							<div class="row h-100" id='div_panic_btn' style='display:none;margin-top:-40px'>
+								<div class="col-sm-12 my-auto">
+									<h1 style='font-size:8em;color: red;font-weight:700'><center><span id='seconds-counter'></span></center></h1>
+								</div>
+							 </div>
+							 
 							 
 							 	<div class="form-group text-center m-t-20">
 									<div class="col-xs-12">
 										<div id='div_panic'  class="fixed-bottom">
-											<h1 style='color: red;font-weight:700'><center><span id='seconds-counter'></span></center></h1>
+											
 											<center><button id='btncounter' onclick='start()' class="btn btn-info btn-lg btn-block text-uppercase btn-rounded" style='background-color:#61233C;width:200px;border:0px' type="button">PANIC</button></center>
 											<br>
 											<div id='div_alert_panic'></div>

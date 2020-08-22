@@ -39,7 +39,7 @@
 <style>
   .form-control::placeholder {
     /*color: #6c757d;*/
-    color: gray;
+    color: white;
   }
 .text-primary {
     color: white !important;
@@ -51,7 +51,7 @@
 
 </head>
 
-<body>
+<body style='height:100vh;background-color:#61233C'>
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -67,20 +67,20 @@
     <section id="wrapper" class="login-register login-sidebar " style="height:100vh;background-image: url('img/9349763736532963fa4a51c23f2087ee.jpg')" >
         <!--<div class="login-box card" >
             <div class="card-body"  >-->
+                    <img src='img/logo.png' width='60px' style='margin-top:10px;margin-left:10px'>
 <div class="row h-100">
    <div class="col-sm-12 my-auto">
-
-                <form class="form-horizontal form-material" id="loginform" action="login.html" style="margin: 20px 20px 20px 20px"' >
+                <form class="form-horizontal form-material" id="loginform" action="login.html" style="margin: -40px 20px 20px 20px"' >
                     <!--<a href="javascript:void(0)" class="text-center db"><img src="assets/images/logo-icon.png" alt="Home" /><br/><img src="assets/images/logo-text.png" alt="Home" /></a>-->
-                    <img src='img/logo.png' width='60px' >
+                    <!--<img src='img/logo.png' width='60px' >-->
 					<div class="form-group m-t-40">
                         <div class="col-xs-12">
-                            <input class="form-control" name='edtuser' id='edtuser' style='color:black' type="text" required="" placeholder="Username">
+                            <input class="form-control" name='edtuser' id='edtuser' style='color:white' type="text" required=""  placeholder="Username">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control" name='edtpassword' id='edtpassword' style='color:black' type="password" required="" placeholder="Password">
+                            <input class="form-control" name='edtpassword' id='edtpassword' style='color:white' type="password"  required="" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -106,16 +106,16 @@
 
 				
 				
-                <form class="form-horizontal" id="recoverform" action="index.html" style="margin: 20px 20px 20px 20px">
+                <form class="form-horizontal form-material" id="recoverform" action="index.html" style="margin: -40px 20px 20px 20px">
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <h3>Recover Password</h3>
-                            <p class="text-muted">Enter your Student Number and instructions will be sent to you! </p>
+                            <h3 class='text-primary'>Recover Password</h3>
+                            <p class="text-muted text-primary" >Enter your student number and instructions will be sent to your student email account</p>
                         </div>
                     </div>
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <input class="form-control" name='edtreenviarsenha' id='edtreenviarsenha' type="text" required="" style='color:black' placeholder="Student Number">
+                            <input class="form-control" style='color:white' name='edtreenviarsenha' id='edtreenviarsenha' type="text" required="" placeholder="Student Number">
                         </div>
                     </div>
                     <div class="form-group text-center m-t-20">
@@ -126,7 +126,7 @@
 					
                     <div class="form-group m-b-0">
                         <div class="col-sm-12 text-center">
-                            <p>Already have an account? <a href="javascript:void(0)" id='to-login2' class="text-primary m-l-5"><b>Sign In</b></a></p>
+                            <p class="text-primary" >Already have an account? <a href="javascript:void(0)" id='to-login2' class="text-primary m-l-5" ><b style="color: white">Sign In</b></a></p>
                         </div>
                     </div>
 					
@@ -138,7 +138,7 @@
         </div>-->
     </section>
 	
-	<section id="wrapper2" class="login-register login-sidebar" style='height:100vh;background-color:#61233C'>
+	<section id="wrapper2" class="login-register login-sidebar" style='height:100vh'>
         <div class="login-box card" style='background-color:#61233C'>
             <div class="card-body">
                 <form class="form-horizontal form-material" id="loginform" action="index.php" style='color: white'>
@@ -147,40 +147,40 @@
 					<h3 class="box-title m-t-40 m-b-0" style='color: white'>Register Now</h3><small style='color: white'>Create your account and enjoy</small>
                     <div class="form-group m-t-20" >
                         <div class="col-xs-12">
-                            <input class="form-control" name='edtname=' id='edtname' type="text" required="" placeholder="Name">
+                            <input class="form-control" style='color: white' name='edtname=' id='edtname' type="text" required="" placeholder="Name">
                         </div>
                     </div>
                     <div class="form-group " >
                         <div class="col-xs-12">
-                            <input class="form-control" name='edtsurname' id='edtsurname' type="text" required="" placeholder="Surname">
+                            <input class="form-control" style='color: white' name='edtsurname' id='edtsurname' type="text" required="" placeholder="Surname">
                         </div>
                     </div>
                     <div class="form-group " >
                         <div class="col-xs-12">
-                            <input class="form-control" name='edtstudentnumber' id='edtstudentnumber' type="text" required="" placeholder="Student Number">
+                            <input class="form-control" style='color: white' name='edtstudentnumber' id='edtstudentnumber' type="text" required="" placeholder="Student Number">
                         </div>
                     </div>
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <input class="form-control" name='edtphonenumber' id='edtphonenumber' type="text" required="" placeholder="Phone Number">
+                            <input class="form-control" style='color: white' name='edtpassword2' id='edtpassword2' type="password" required="" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <div id="div_residence"><input class="form-control" name='cmboxresidence' id='cmboxresidence' type="text" required="" placeholder="Residence"></div>
+                            <input class="form-control" style='color: white' name='edtconfirmpassword' id='edtconfirmpassword' type="password" required="" placeholder="Confirm Password">
                         </div>
                     </div>
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <input class="form-control" name='edtpassword2' id='edtpassword2' type="password" required="" placeholder="Password">
+                            <input class="form-control" style='color: white' name='edtphonenumber' id='edtphonenumber' type="text" required="" placeholder="Phone Number">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control" name='edtconfirmpassword' id='edtconfirmpassword' type="password" required="" placeholder="Confirm Password">
+                            <div id="div_residence"><input class="form-control" style='color: white' name='cmboxresidence' id='cmboxresidence' type="text" required="" placeholder="Residence"></div>
                         </div>
                     </div>
-                    <div class="form-group row" style='color: white'>
+                    <div class="form-group row" >
                         <div class="col-md-12">
                             <div class="custom-control custom-checkbox">
                                 <input id="chboxAgree" name='chboxAgree' type="checkbox" class="custom-control-input" value='S' >
@@ -242,8 +242,6 @@
 					(document.getElementById('edtreenviarsenha').value!='') 
 				)
 			{
-			  
-			  
 				$.post("https://tempustecnologia.com/sulife/controller/exec.register.php",
 				{
 				  op: "REENVIARSENHA",
@@ -306,6 +304,7 @@
 					surname = res[4];
 					phonenumber = res[5];
 					gender = res[6];
+					picture = res[7];
 				
 				
 					if (data.trim()!='ERRO')
@@ -318,6 +317,7 @@
 						window.localStorage.setItem("surname",surname);
 						window.localStorage.setItem("phonenumber",phonenumber);
 						window.localStorage.setItem("gender",gender);
+						window.localStorage.setItem("picture",picture);
 						window.location.href = 'index2.html';
 					}
 					else
@@ -353,10 +353,10 @@
 					(document.getElementById('edtstudentnumber').value!='') &&
 					(document.getElementById('edtphonenumber').value!='') &&
 					(document.getElementById('cmboxresidence').value!='') &&
-					(document.getElementById('edtpassword').value!='') &&
+					(document.getElementById('edtpassword2').value!='') &&
 					(document.getElementById('chboxAgree').checked==true) &&
 					(
-						(document.getElementById('edtpassword').value==document.getElementById('edtconfirmpassword').value)
+						(document.getElementById('edtpassword2').value==document.getElementById('edtconfirmpassword').value)
 					)
 				)
 			{

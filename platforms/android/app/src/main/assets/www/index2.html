@@ -55,9 +55,21 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+<style>
+  .form-control::placeholder {
+    /*color: #6c757d;*/
+    color: white;
+  }
+.text-primary {
+    color: white !important;
+}  
+  
+</style>
+
 </head>
 
-<body class="skin-purple fixed-layout">
+<body class="skin-purple fixed-layout" style='background-color:#61233C'>
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -71,13 +83,21 @@
 						<input type='hidden' name='time' id='time' value=''>
 						<div class="form-group">
 							<label for="message-text" class="control-label">Activity:</label>
-							<textarea style='color: black' name='activity' id='activity' class="form-control" id="message-text1"></textarea>
+							<textarea style='color: black' name='activity' id='activity' class="form-control"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">Building:</label>
+							<input type='text' style='color: black' name='building' id='building' class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">Room Number:</label>
+							<input type='text' style='color: black' name='roomnumber' id='roomnumber' class="form-control">
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" onclick="addActivity(document.getElementById('day').value,document.getElementById('time').value,document.getElementById('activity').value)" class="btn btn-primary" data-dismiss="modal" style='color: white;background-color:#61233C'>Send message</button>
+					<button type="button" onclick="addActivity(document.getElementById('day').value,document.getElementById('time').value,document.getElementById('activity').value,document.getElementById('roomnumber').value,document.getElementById('building').value)" class="btn btn-primary" data-dismiss="modal" style='color: white;background-color:#61233C'>Save</button>
 				</div>
 			</div>
 		</div>
@@ -105,7 +125,7 @@
                 <!-- Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="index2.html">
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
@@ -147,7 +167,7 @@
                     <ul class="navbar-nav my-lg-0">
                         
                         <li class="nav-item dropdown u-pro">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class=""> <span class="hidden-md-down"><i class="fa fa-angle-down"></i></span> </a>
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img id='pictureMenuUser' src="picture/user/1.jpg" alt="user" class=""> <span class="hidden-md-down"><i class="fa fa-angle-down"></i></span> </a>
                             <div class="dropdown-menu dropdown-menu-right animated flipInY">
                                 <!-- text-->
                                 <a onclick="getPage('settings',false)" class="dropdown-item"><i class="ti-settings"></i> Account Setting (<span id='div_name'></span>)</a>
@@ -260,6 +280,8 @@
 	$(document).ready(function(){
 		$("#page_index").load("page_index.html");
 		document.getElementById('div_name').innerHTML=window.localStorage.getItem("name");
+		document.getElementById('pictureMenuUser').src='https://www.tempustecnologia.com/sulife/picture/user/'+window.localStorage.getItem("picture");
+		
 	});	
 	
 	//
@@ -267,32 +289,49 @@
 	//
 	function excluirImagemManutencao(arquivo)
 	{
-		$.post("https://tempustecnologia.com/sulife/controller/exec.maintenance.php",
+		navigator.notification.confirm(
+			'Are you sure you want to delete ',  // message
+			onConfirmDeleteImagemMantenance,              // callback to invoke with index of button pressed
+			'Delete',            // title
+			 ['yes','no']             // buttonLabels
+		);
+
+		function onConfirmDeleteImagemMantenance(buttonIndex)
 		{
-		  op: "EARQUIVOAPP",
-		  arquivo:  arquivo
-		},
-		function(data,status){
-			if (data.trim()=='OK')
+			if(buttonIndex==2)
 			{
-				navigator.notification.alert(
-						'Deleted successfully.',  // message
-						alertDismissed,         // callback
-						'Success',            // title
-						'OK'                  // buttonName
-				);
-				getPage('followups',false)
+
 			}
 			else
-			{
-				navigator.notification.alert(
-						'Unable to delete.',  // message
-						alertDismissed,         // callback
-						'error',            // title
-						'OK'                  // buttonName
-				);				
+			{	
+				$.post("https://tempustecnologia.com/sulife/controller/exec.maintenance.php",
+				{
+				  op: "EARQUIVOAPP",
+				  arquivo:  arquivo
+				},
+				function(data,status){
+					if (data.trim()=='OK')
+					{
+						navigator.notification.alert(
+								'Deleted successfully.',  // message
+								alertDismissed,         // callback
+								'Success',            // title
+								'OK'                  // buttonName
+						);
+						getPage('followups',false)
+					}
+					else
+					{
+						navigator.notification.alert(
+								'Unable to delete.',  // message
+								alertDismissed,         // callback
+								'error',            // title
+								'OK'                  // buttonName
+						);				
+					}
+				});
 			}
-		});
+		}
 	}
 	
 	//
@@ -301,32 +340,51 @@
 	
 	function excluirManutencao(id)
 	{
-		$.post("https://tempustecnologia.com/sulife/controller/exec.maintenance.php",
+		navigator.notification.confirm(
+			'Are you sure you want to delete ',  // message
+			onConfirmDeleteMantenance,              // callback to invoke with index of button pressed
+			'Delete',            // title
+			 ['yes','no']             // buttonLabels
+		);
+
+		function onConfirmDeleteMantenance(buttonIndex)
 		{
-		  op: "EAPP",
-		  idmaintenance:  id
-		},
-		function(data,status){
-			if (data.trim()=='OK')
+			if(buttonIndex==2)
 			{
-				navigator.notification.alert(
-						'Deleted successfully.',  // message
-						alertDismissed,         // callback
-						'Success',            // title
-						'OK'                  // buttonName
-				);
-				getPage('followups',false)
+
 			}
 			else
-			{
-				navigator.notification.alert(
-						'Unable to delete.',  // message
-						alertDismissed,         // callback
-						'error',            // title
-						'OK'                  // buttonName
-				);				
+			{	
+	
+	
+				$.post("https://tempustecnologia.com/sulife/controller/exec.maintenance.php",
+				{
+				  op: "EAPP",
+				  idmaintenance:  id
+				},
+				function(data,status){
+					if (data.trim()=='OK')
+					{
+						navigator.notification.alert(
+								'Deleted successfully.',  // message
+								alertDismissed,         // callback
+								'Success',            // title
+								'OK'                  // buttonName
+						);
+						getPage('followups',false)
+					}
+					else
+					{
+						navigator.notification.alert(
+								'Unable to delete.',  // message
+								alertDismissed,         // callback
+								'error',            // title
+								'OK'                  // buttonName
+						);				
+					}
+				});
 			}
-		});
+		}
 	}
 	
 	//
@@ -334,6 +392,12 @@
 	//
 	function addEmergencyContact()
 	{
+		if (
+			(document.getElementById('edtname').value!='') && 
+			(document.getElementById('edtphonenumber').value!='')
+		)
+		{
+
 		$.post("https://tempustecnologia.com/sulife/controller/exec.emergencycontact.php",
 		{
 		  op: "IAPP",
@@ -352,7 +416,8 @@
 						alertDismissed,         // callback
 						'Success',            // title
 						'OK'                  // buttonName
-				);	
+				);
+				getPage('emergencycontact',false)				
 			}
 			else
 			{
@@ -364,6 +429,18 @@
 				);				
 			}
 		});
+		}
+		else
+		{
+			navigator.notification.alert(
+							'Fill in the fields.',  // message
+							alertDismissed,         // callback
+							'Warning',            // title
+							'OK'                  // buttonName
+			);		
+		}		
+		
+		
 	};
 
 	//
@@ -426,6 +503,16 @@
 	
 	function updateSetttings()
 	{
+		alert(document.getElementById('edtpictureuser').value);
+		if (
+					(document.getElementById('edtname').value!='') &&
+					(document.getElementById('edtsurname').value!='') &&
+					(document.getElementById('edtphonenumber').value!='') &&
+					(document.getElementById('cmboxresidence').value!='') &&
+					(document.getElementById('edtgender').value!='')
+			)
+			{	
+	
 		$.post("https://tempustecnologia.com/sulife/controller/exec.register.php",
 		{
 		  op: "AAPP",
@@ -434,7 +521,8 @@
 		  edtsurname: document.getElementById('edtsurname').value,
 		  edtphonenumber: document.getElementById('edtphonenumber').value,
 		  cmboxresidence: document.getElementById('cmboxresidence').value,
-		  edtgender: document.getElementById('edtgender').value
+		  edtgender: document.getElementById('edtgender').value,
+		  picture: document.getElementById('edtpictureuser').value
 		},
 		function(data,status){
 			if (data.trim()=='OK')
@@ -457,7 +545,17 @@
 			}
 		});
 	}
-
+	else
+	{
+				navigator.notification.alert(
+							'Check the fields. All fields are mandatory',  // message
+							alertDismissed,         // callback
+							'Warning',            // title
+							'OK'                  // buttonName
+						);	
+			
+			}
+	}
 
 	
 	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -579,33 +677,50 @@
 	
 	function deleteEmergencyContact(id)
 	{
-		$.post("https://tempustecnologia.com/sulife/controller/exec.emergencycontact.php",
+		navigator.notification.confirm(
+			'Are you sure you want to delete ',  // message
+			onConfirmDeleteEmergencyContact,              // callback to invoke with index of button pressed
+			'Delete',            // title
+			 ['yes','no']             // buttonLabels
+		);
+
+		function onConfirmDeleteEmergencyContact(buttonIndex)
 		{
-		  op: "E",
-		  idemergencycontact: id
-		},
-		function(data,status){
-			if (data.trim()=='OK')
+			if(buttonIndex==2)
 			{
-				navigator.notification.alert(
-					'Successfully deleted.',  // message
-					alertDismissed,         // callback
-					'Success',            // title
-					'OK'                  // buttonName
-				);
-				getPage('emergencycontact',false);
-				
+
 			}
 			else
 			{
-				navigator.notification.alert(
-				'Could not delete.',  // message
-						alertDismissed,         // callback
-						'Warning',            // title
-						'OK'                  // buttonName
-				);	
+				$.post("https://tempustecnologia.com/sulife/controller/exec.emergencycontact.php",
+				{
+				  op: "E",
+				  idemergencycontact: id
+				},
+				function(data,status){
+					if (data.trim()=='OK')
+					{
+						navigator.notification.alert(
+							'Successfully deleted.',  // message
+							alertDismissed,         // callback
+							'Success',            // title
+							'OK'                  // buttonName
+						);
+						getPage('emergencycontact',false);
+						
+					}
+					else
+					{
+						navigator.notification.alert(
+						'Could not delete.',  // message
+								alertDismissed,         // callback
+								'Warning',            // title
+								'OK'                  // buttonName
+						);	
+					}
+				});
 			}
-		});
+		}
 	}
 
 
@@ -880,7 +995,8 @@
 					document.getElementById('edtsurname').value=window.localStorage.getItem("surname");
 					document.getElementById('edtphonenumber').value=window.localStorage.getItem("phonenumber");
 					document.getElementById('edtgender').value=window.localStorage.getItem("gender").trim();
-				
+					document.getElementById('edtpictureuser').value=window.localStorage.getItem("picture").trim();
+					document.getElementById('img_user').src='https://www.tempustecnologia.com/sulife/picture/user/'+window.localStorage.getItem("picture");
 					
 				}
 			});
@@ -958,9 +1074,13 @@
 				clearInterval(cancel);
 				restoreState();
 				document.getElementById('div_alert_panic').innerHTML = '';
+				$("#loginform").css("display", "block");
+				$("#div_panic_btn").css("display", "none");
 			}
 			else
 			{
+				$("#div_panic_btn").css("display", "block");
+				$("#loginform").css("display", "none");
 				cancel = setInterval(decrementSeconds, 1000);
 				document.getElementById("btncounter").innerHTML = "CANCEL";
 				document.getElementById("btncounter").style.background = "green";
@@ -1246,16 +1366,22 @@ function getTimetable()
 	});
 }
 
-function abreModal(dia,hora,atividade)
+function abreModal(dia,hora,atividade,roomnumber,building)
 {
 	document.getElementById('day').value=dia;
 	document.getElementById('time').value=hora;
 	document.getElementById('activity').value=atividade;
+	document.getElementById('roomnumber').value=roomnumber;
+	document.getElementById('building').value=building;
 	$('#exampleModal').modal();
 }
 
-function addActivity(dia,hora,activity)
+function addActivity(dia,hora,activity,roomnumber,building)
 {
+
+if ( activity!='')
+	{	
+
 	//alert('dia:'+dia+' hora:'+hora+' Atividade:'+activity);
 	$.post("https://tempustecnologia.com/sulife/controller/exec.timetable.php",
 	{
@@ -1263,7 +1389,9 @@ function addActivity(dia,hora,activity)
 		iduser: window.localStorage.getItem("iduser"),
 		day: dia,
 		time: hora,
-		activity: activity
+		activity: activity,
+		roomnumber: roomnumber,
+		building: building
 	},
 	function(data,status){
 		if (data.trim()=='OK')
@@ -1287,45 +1415,163 @@ function addActivity(dia,hora,activity)
 			);	
 		}
 	});
+	
+	}
+	else
+	{
+		navigator.notification.alert(
+					'Check the field. The field is mandatory',  // message
+					alertDismissed,         // callback
+					'Warning',            // title
+					'OK'                  // buttonName
+				);	
+	
+	}
 
 }
 
 
 function deleteActivity(id)
 {
+	navigator.notification.confirm(
+        'Are you sure you want to delete ',  // message
+        onConfirmDeleteActivity,              // callback to invoke with index of button pressed
+        'Delete',            // title
+         ['yes','no']             // buttonLabels
+    );
 
-	$.post("https://tempustecnologia.com/sulife/controller/exec.timetable.php",
+    function onConfirmDeleteActivity(buttonIndex)
 	{
-	  op: "E",
-	  idtimetable: id
-	},
-	function(data,status){
-		
-		if (data.trim()=='OK')
+		if(buttonIndex==2)
 		{
-			navigator.notification.alert(
-				'Excluído com sucesso.',  // message
-				alertDismissed,         // callback
-				'Success',            // title
-				'OK'                  // buttonName
-			);
-			getPage('timetable',false);
-			
+
 		}
 		else
 		{
-			navigator.notification.alert(
-			'Não foi possível excluir.',  // message
-					alertDismissed,         // callback
-					'Warning',            // title
-					'OK'                  // buttonName
-			);	
+			$.post("https://tempustecnologia.com/sulife/controller/exec.timetable.php",
+			{
+			  op: "E",
+			  idtimetable: id
+			},
+			function(data,status){
+				
+				if (data.trim()=='OK')
+				{
+					navigator.notification.alert(
+						'Excluído com sucesso.',  // message
+						alertDismissed,         // callback
+						'Success',            // title
+						'OK'                  // buttonName
+					);
+					getPage('timetable',false);
+					
+				}
+				else
+				{
+					navigator.notification.alert(
+					'Não foi possível excluir.',  // message
+							alertDismissed,         // callback
+							'Warning',            // title
+							'OK'                  // buttonName
+					);	
+				}
+			});				
+
 		}
-	});
+
+	
+	}
+
+
+
 
 }
 
+
+// SETTINS
+
+
+	function getImageUser()
+	{
 		
+		navigator.camera.getPicture(uploadPhotoUser, function(message) {
+			alert('get picture failed');
+		}, {
+		quality: 25,
+		destinationType: navigator.camera.DestinationType.FILE_URI,
+		sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+
+		});
+		
+	}
+
+	function uploadPhotoUser(imageURI) {
+		
+		//alert(imageURI.substr(imageURI.lastIndexOf('/') + 1));
+		var options = new FileUploadOptions();
+		options.fileKey = "file";
+		arquivo = leftPad(window.localStorage.getItem("iduser"),6)+'_'+imageURI.substr(imageURI.lastIndexOf('/') + 1)+'.jpg';
+		options.fileName = arquivo;
+		document.getElementById('edtpictureuser').value=arquivo;
+		//options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+		options.mimeType = "image/jpeg";
+		console.log(options.fileName);
+		var params = new Object();
+		params.value1 = "test";
+		params.value2 = "param";
+		options.params = params;
+		options.chunkedMode = false;
+
+		var ft = new FileTransfer();
+		ft.onprogress = function(progressEvent) {
+			//alert(progressEvent.loaded);
+			var p =  Math.round((progressEvent.loaded / progressEvent.total)*100);
+			
+			var progress = '';
+			progress = '<div class="progress">';
+			progress +='<div class="progress-bar bg-success" role="progressbar" style="width: '+p+'%;height:15px;" role="progressbar"> '+p+'% </div>';
+			progress +='</div>';
+			document.getElementById('progressbaruserpicture').innerHTML = progress;
+			
+			//document.getElementById('btn_camera_'+document.getElementById('idpedidoparaatendimento').value+'').value = progressEvent.loaded;
+			
+			//if (progressEvent.lengthComputable) {
+		//		loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total)*100;
+		//	} else {
+		//		loadingStatus.increment();
+		//	}
+			
+		};
+		//alert('imageURI:'+imageURI);
+		ft.upload(imageURI, "https://www.tempustecnologia.com/sulife/uploadusers.php", function(result){
+				//alert('3');
+
+				navigator.notification.alert(
+									'Image uploaded successfully.',  // message
+									alertDismissed,         // callback
+									'Atenção',            // title
+									'OK'                  // buttonName
+				);
+				
+				document.getElementById('img_user').src='https://tempustecnologia.com/sulife/picture/user/'+arquivo;
+				document.getElementById('progressbaruserpicture').innerHTML = '';
+				//getPage('followups',false);
+				console.log(JSON.stringify(result));
+		}, function(error){
+				//alert(JSON.stringify(error));
+				navigator.notification.alert(
+									'Could not upload the image.',  // message
+									alertDismissed,         // callback
+									'Atenção',            // title
+									'OK'                  // buttonName
+				);
+			console.log(JSON.stringify(error));
+		}, options);
+		
+		
+	}	
+
+	
     </script>
 </body>
 
