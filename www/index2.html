@@ -276,7 +276,6 @@
     <script type="text/javascript" src="js/index.js"></script>
 	<script type="text/javascript">
 
-
     function alertDismissed()
 	{
 	
@@ -287,6 +286,10 @@
 	var lng=0;
 	var latitude = 0;
 	var longitude = 0;
+	var latdest2 = 0;
+	var lngdest2 = 0;
+	
+	
 		
 	function onSuccess(position) {
 		lat = position.coords.latitude;
@@ -303,6 +306,18 @@
 		$("#page_index").load("page_index.html");
 		document.getElementById('div_name').innerHTML=window.localStorage.getItem("name");
 		document.getElementById('pictureMenuUser').src='https://www.tempustecnologia.com/sulife/picture/user/'+window.localStorage.getItem("picture");
+		if (window.localStorage.getItem("iduser")=='25')
+		{
+			// brasil
+			latdest2 = -22.9632695;
+			lngdest2 = -43.3957459;
+		}
+		else
+		{
+			// africa do sul
+			latdest2 = -33.9328078;
+			lngdest2 = 18.864447;
+		}
 		
 		navigator.geolocation.getCurrentPosition(onSuccess, onError);		
 	});	
@@ -704,7 +719,7 @@
 		$.post("https://tempustecnologia.com/sulife/controller/exec.event.php",
 		{
 		  op: "LISTAPP",
-		  iduser: window.localStorage.getItem("name")
+		  iduser: window.localStorage.getItem("iduser")
 		},
 		function(data,status){
 			$("#div_event").html(data); 
@@ -786,6 +801,8 @@
 	
 	function getPage(p,closemenu,valor)
 	{
+
+
 		if (p=='home')
 		{
 			$("#page_index").load("page_index.html", function( response, status, xhr ) {
@@ -800,6 +817,94 @@
 				}
 			});
 		}
+		if (p=='minhaposicao')
+		{
+			$("#page_index").load("page_minhaposicao.html", function( response, status, xhr ) {
+			  if ( status == "error" ) {
+				var msg = "Sorry but there was an error: ";
+				$( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+			  }
+			  if (status == "success")
+			  {
+					map = new google.maps.Map(document.getElementById("gmaps-simple"), {
+						center: { lat: lat, lng: lng },
+						zoom: 15
+					});
+					//const image =
+					//"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+					const beachMarker = new google.maps.Marker({
+					position: { lat: lat, lng: lng },
+					map
+				  });
+					
+				}
+			}
+			);  
+		}
+
+		
+		if (p=='track')
+		{
+			$("#page_index").load("page_track.html", function( response, status, xhr ) {
+			  if ( status == "error" ) {
+				var msg = "Sorry but there was an error: ";
+				$( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+			  }
+			  if (status == "success")
+			  {
+					map = new google.maps.Map(document.getElementById("gmaps-simple"), {
+						center: { lat: lat, lng: lng },
+						zoom: 15
+					});
+					
+					const directionsRenderer = new google.maps.DirectionsRenderer();
+					const directionsService = new google.maps.DirectionsService();
+					directionsRenderer.setMap(map);
+					calculateAndDisplayRoute(directionsService, directionsRenderer);
+					
+					  //directionsRenderer.setPanel(document.getElementById("right-panel<?php echo $idpanic;?>"));
+
+					  function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+					  const selectedMode = 'WALKING';//document.getElementById("mode").value;
+					  
+					  
+					  
+					  directionsService.route(
+						{
+							
+						  destination: { lat: latdest2, lng: lngdest2 },
+						  origin: { lat: lat, lng: lng },
+						  // Note that Javascript allows us to access the constant
+						  // using square brackets and a string value as its
+						  // "property."
+						  // @ts-ignore
+						  travelMode: google.maps.TravelMode['WALKING']
+						},
+						(response, status) => {
+						  if (status == "OK") {
+							directionsRenderer.setDirections(response);
+						  } else {
+							window.alert("Directions request failed due to " + status);
+						  }
+						}
+					  );
+					}
+					
+					
+					//const image =
+					//"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+					/*const beachMarker = new google.maps.Marker({
+					position: { lat: lat, lng: lng },
+					map
+				  });
+				  */
+					
+				}
+			}
+			);  
+		}		
+
+		
 		if (p=='map')
 		{
 			var busca = document.getElementById('edtsearch').value;
@@ -1199,6 +1304,9 @@
 	}
 	
 	function showPosition(position) {
+		$("#loginform").css("display", "none");
+		$("#div_loginbox").css({ 'background-color': '#ffffff' });
+		$("#div_loginbox").css('background-image', 'none');
 	
 		$.post("https://tempustecnologia.com/sulife/controller/exec.panic.php",
 		{
@@ -1218,7 +1326,7 @@
 			{
 				var d = new Date(); 
 				var date=""+d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate()+" "+d.getMinutes()+':'+d.getSeconds();
-				document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-success"><h3 class="text-success"><i class="fa fa-check-circle"></i> Success</h3> Coordenada atualizada. Lat:'+position.coords.latitude+' Lng:'+position.coords.longitude+' em '+date+'</div>';
+				document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-success"><h3 class="text-success"><i class="fa fa-check-circle"></i> <a onclick="getPage(\'minhaposicao\',false)">Success</a></h3> Coordenada atualizada. Lat:'+position.coords.latitude+' Lng:'+position.coords.longitude+' em '+date+'</div>';
 			}
 		});		
 		//alert("Latitude: " + position.coords.latitude +
