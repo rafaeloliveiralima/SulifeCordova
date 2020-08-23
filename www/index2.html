@@ -210,6 +210,11 @@
                         <li>
 							<a class="waves-effect waves-dark" onclick="getPage('timetable',true)" aria-expanded="false"><i class="ti-alarm-clock"></i><span class="hide-menu">Time Table</span></a>
 							<a class="waves-effect waves-dark" onclick="getPage('calendar',true)" aria-expanded="false"><i class="ti-calendar"></i><span class="hide-menu">Calendar</span></a>
+
+							<a class="waves-effect waves-dark" href="https://learn.sun.ac.za/" aria-expanded="false"><i class="ti-link"></i><span class="hide-menu">SUNLearn</span></a>
+							<a class="waves-effect waves-dark" href="https://midtier.sun.ac.za/html-navbar/home.html" aria-expanded="false"><i class="ti-link"></i><span class="hide-menu">MySun</span></a>
+							
+							
 							<a class="waves-effect waves-dark" onclick="getPage('emergencycontact',true)" aria-expanded="false"><i class="fa fa-address-card-o"></i><span class="hide-menu">Emergency Contact</span></a>
 							<a class="waves-effect waves-dark" onclick="getPage('settings',true)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Settings</span></a>
 							<a class="waves-effect waves-dark" href="index.html" aria-expanded="false"><i class="fa fa-power-off"></i><span class="hide-menu">Log off</span></a>
@@ -1084,6 +1089,8 @@
 				cancel = setInterval(decrementSeconds, 1000);
 				document.getElementById("btncounter").innerHTML = "CANCEL";
 				document.getElementById("btncounter").style.background = "green";
+				 $("#div_loginbox").css({ 'background-color': '#ffffff' });
+				 $("#div_loginbox").css('background-image', 'none');
 				//document.getElementById("btncounter").className = "btn btn-info btn-lg btn-block text-uppercase btn-rounded";
 				//cancel = setInterval(incrementSeconds, 1000);
 				decrementSeconds();
@@ -1129,13 +1136,16 @@
 					if (data.trim()!='OK')
 					{
 						document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button><h3 class="text-warning"><i class="fa fa-check-circle"></i> Warning</h3> Campus Security has NOT been notified.</div>';
+						
 					}
 					else
 					{
 						document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button><h3 class="text-success"><i class="fa fa-check-circle"></i> Success</h3> Campus Security has been notified.</div>';
 						//alert('Enviar para o siga-me');
 						getLocation();
+						getContacts();
 					}
+					
 				});							
 				restoreState();
 			}
@@ -1156,6 +1166,11 @@
 		}
 		lat = Latitude;
 		lng = Longitude;
+		
+		// atualizo a situação do contato
+		
+
+		
 		//alert('Latitude: '  + position.coords.latitude+ ' Longitude: ' + position.coords.longitude);
 	}	
 	
@@ -1185,18 +1200,32 @@
 			//alert(data);
 			if (data.trim()!='OK')
 			{
-				document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button><h3 class="text-warning"><i class="fa fa-check-circle"></i> Warning</h3> Não foi possível atualizar a coordenada.</div>';
+				document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-warning"> <span aria-hidden="true">×</span> </button><h3 class="text-warning"><i class="fa fa-check-circle"></i> Warning</h3> Não foi possível atualizar a coordenada.</div>';
 				navigator.geolocation.clearWatch(watchID);
 			}
 			else
 			{
-				document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button><h3 class="text-warning"><i class="fa fa-check-circle"></i> Warning</h3> Coordenada atualizada. Lat:'+lat+' Lng:'+lng+'</div>';
+				document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-warning"> <span aria-hidden="true">×</span> </button><h3 class="text-warning"><i class="fa fa-check-circle"></i> Warning</h3> Coordenada atualizada. Lat:'+lat+' Lng:'+lng+'</div>';
 			}
 		});		
 		//alert("Latitude: " + position.coords.latitude +
 		//"<br>Longitude: " + position.coords.longitude);
-		document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button><h3 class="text-success"><i class="fa fa-check-circle"></i> Success</h3> Coordenada atualizada. Lat:'+position.coords.latitude+' Lng:'+position.coords.longitude+'</div>';
+		document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-success"><span aria-hidden="true">×</span> </button><h3 class="text-success"><i class="fa fa-check-circle"></i> Success</h3> Coordenada atualizada. Lat:'+position.coords.latitude+' Lng:'+position.coords.longitude+'</div>';
+		getPanicStatus();
 	}	
+	
+	function getPanicStatus()
+	{
+		$.post("https://tempustecnologia.com/sulife/controller/exec.panic.php",
+		{
+		  op: "STATUSPANIC",
+		  iduser: window.localStorage.getItem("iduser")
+		},
+		function(data,status){
+			
+			$("#div_alert_panic_security").html(data); 
+		});
+	}
 		
 	function abreCamera(tipo,funcao,id)
 	{
@@ -1351,7 +1380,19 @@
 		
 	}	
 
-
+function getContacts()
+{
+	$.post("https://tempustecnologia.com/sulife/controller/exec.emergencycontact.php",
+	{
+	  op: "LIST",
+	  iduser: window.localStorage.getItem("iduser")
+	},
+	function(data,status){
+		$("#div_alert_panic_contact").html(data); 
+	});
+}
+	
+	
 // time table
 
 function getTimetable()
