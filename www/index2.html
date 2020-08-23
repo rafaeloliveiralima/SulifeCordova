@@ -280,13 +280,14 @@
 	{
 	
 	}
-	let map, infoWindow;
+	let map, infoWindow, lat, lng, latitude, longitude;
 	
 	$(document).ready(function(){
 		$("#page_index").load("page_index.html");
 		document.getElementById('div_name').innerHTML=window.localStorage.getItem("name");
 		document.getElementById('pictureMenuUser').src='https://www.tempustecnologia.com/sulife/picture/user/'+window.localStorage.getItem("picture");
-		
+		navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
 	});	
 	
 	//
@@ -1119,10 +1120,9 @@
 			}
 			if (seconds<0)
 			{
-				var lat=0;
-				var lng=0;
+				//var lat=0;
+				//var lng=0;
 				
-				navigator.geolocation.getCurrentPosition(onSuccess, onError);
 				
 				$.post("https://tempustecnologia.com/sulife/controller/exec.panic.php",
 				{
@@ -1154,21 +1154,23 @@
 	var watchID = '';
 
 	function onSuccess(position) {
+		//alert('onsucess');
 		var updatedLatitude = position.coords.latitude;
 		var updatedLongitude = position.coords.longitude;
-		if (updatedLatitude != Latitude && updatedLongitude != Longitude) {
+
+		//if (updatedLatitude != Latitude && updatedLongitude != Longitude) {
 
 			Latitude = updatedLatitude;
 			Longitude = updatedLongitude;
 
 			// Calls function we defined earlier.
 			//getWeather(updatedLatitude, updatedLongitude);
-		}
+		//}
 		lat = Latitude;
 		lng = Longitude;
-		
 		// atualizo a situação do contato
 		
+		alert('This alert is only to test if the GPS is ON. Lat: '+lat+ 'Long:'+lng+' ');
 
 		
 		//alert('Latitude: '  + position.coords.latitude+ ' Longitude: ' + position.coords.longitude);
@@ -1200,17 +1202,19 @@
 			//alert(data);
 			if (data.trim()!='OK')
 			{
-				document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-warning"> <span aria-hidden="true">×</span> </button><h3 class="text-warning"><i class="fa fa-check-circle"></i> Warning</h3> Não foi possível atualizar a coordenada.</div>';
+				document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-warning"><h3 class="text-warning"><i class="fa fa-check-circle"></i> Warning</h3> Não foi possível atualizar a coordenada.</div>';
 				navigator.geolocation.clearWatch(watchID);
 			}
 			else
 			{
-				document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-warning"> <span aria-hidden="true">×</span> </button><h3 class="text-warning"><i class="fa fa-check-circle"></i> Warning</h3> Coordenada atualizada. Lat:'+lat+' Lng:'+lng+'</div>';
+				var d = new Date(); 
+				var date=""+d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate()+" "+d.getMinutes()+':'+d.getSeconds();
+				document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-success"><h3 class="text-success"><i class="fa fa-check-circle"></i> Success</h3> Coordenada atualizada. Lat:'+position.coords.latitude+' Lng:'+position.coords.longitude+' em '+date+'</div>';
 			}
 		});		
 		//alert("Latitude: " + position.coords.latitude +
 		//"<br>Longitude: " + position.coords.longitude);
-		document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-success"><span aria-hidden="true">×</span> </button><h3 class="text-success"><i class="fa fa-check-circle"></i> Success</h3> Coordenada atualizada. Lat:'+position.coords.latitude+' Lng:'+position.coords.longitude+'</div>';
+		//document.getElementById('div_alert_panic').innerHTML = '<div class="alert alert-success"><h3 class="text-success"><i class="fa fa-check-circle"></i> Success</h3> Coordenada atualizada. Lat:'+position.coords.latitude+' Lng:'+position.coords.longitude+'</div>';
 		getPanicStatus();
 	}	
 	
