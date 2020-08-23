@@ -67,7 +67,7 @@
     <section id="wrapper" class="login-register login-sidebar " style="height:100vh;background-image: url('img/9349763736532963fa4a51c23f2087ee.jpg')" >
         <!--<div class="login-box card" >
             <div class="card-body"  >-->
-                    <img src='img/logo.png' width='90px' style='margin-top:10px;margin-left:10px'>
+                    <img src='assets/images/logo.png' width='120px' style='margin-top:10px;margin-left:10px'>
 <div class="row h-100">
    <div class="col-sm-12 my-auto">
                 <form class="form-horizontal form-material" id="loginform" action="login.html" style="margin: -70px 20px 20px 20px"' >
@@ -75,12 +75,12 @@
                     <!--<img src='img/logo.png' width='60px' >-->
 					<div class="form-group m-t-40">
                         <div class="col-xs-12">
-                            <input class="form-control" name='edtuser' id='edtuser' style='color:white' type="text" required="" value="5" placeholder="Username">
+                            <input class="form-control" name='edtuser' id='edtuser' style='color:white;font-size:1.2em;' type="text" required="" value="5" placeholder="Username">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control" name='edtpassword' id='edtpassword' style='color:white' type="password" value="5" required="" placeholder="Password">
+                            <input class="form-control" name='edtpassword' id='edtpassword' style='color:white;font-size:1.2em' type="password" value="5" required="" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -115,7 +115,7 @@
                     </div>
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <input class="form-control" style='color:white' name='edtreenviarsenha' id='edtreenviarsenha' type="text" required="" placeholder="Student Number">
+                            <input class="form-control" style='color:white' name='edtreenviarsenha'  style='color:white;font-size:1.2em' id='edtreenviarsenha' type="text" required="" placeholder="Student Number">
                         </div>
                     </div>
                     <div class="form-group text-center m-t-20">
@@ -126,7 +126,7 @@
 					
                     <div class="form-group m-b-0">
                         <div class="col-sm-12 text-center">
-                            <p class="text-primary" >Already have an account? <a href="javascript:void(0)" id='to-login2' class="text-primary m-l-5" ><b style="color: white">Sign In</b></a></p>
+                            <p class="text-primary" >Already have an account? <a href="javascript:void(0)" id='to-login2' class="text-default m-l-5" ><b >Sign In</b></a></p>
                         </div>
                     </div>
 					
@@ -141,7 +141,7 @@
 	<section id="wrapper2" class="login-register login-sidebar" style='height:100vh'>
         <div class="login-box card" style='background-color:#61233C'>
             <div class="card-body">
-                <form class="form-horizontal form-material" id="loginform" action="index.php" style='color: white'>
+                <form class="form-horizontal form-material" id="registerform" action="index.php" style='color: white'>
                     <!--<a href="javascript:void(0)" class="text-center db"><img src="../assets/images/logo-icon.png" alt="Home" /><br/><img src="../assets/images/logo-text.png" alt="Home" /></a>-->
                     
 					<h3 class="box-title m-t-40 m-b-0" style='color: white'>Register Now</h3><small style='color: white'>Create your account and enjoy</small>
@@ -162,16 +162,6 @@
                     </div>
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <input class="form-control" style='color: white' name='edtpassword2' id='edtpassword2' type="password" required="" placeholder="Password">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <input class="form-control" style='color: white' name='edtconfirmpassword' id='edtconfirmpassword' type="password" required="" placeholder="Confirm Password">
-                        </div>
-                    </div>
-                    <div class="form-group ">
-                        <div class="col-xs-12">
                             <input class="form-control" style='color: white' name='edtphonenumber' id='edtphonenumber' type="text" required="" placeholder="Phone Number">
                         </div>
                     </div>
@@ -180,6 +170,18 @@
                             <div id="div_residence"><input class="form-control" style='color: white' name='cmboxresidence' id='cmboxresidence' type="text" required="" placeholder="Residence"></div>
                         </div>
                     </div>
+
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input class="form-control" style='color: white' name='edtpassword2' id='edtpassword2' type="password" required="" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="form-control" style='color: white' name='edtconfirmpassword' id='edtconfirmpassword' type="password" required="" placeholder="Confirm Password">
+                        </div>
+                    </div>
+
                     <div class="form-group row" >
                         <div class="col-md-12">
                             <div class="custom-control custom-checkbox">
@@ -234,9 +236,7 @@
 		
 		}
 		
-		$(document).ready(function(){
-		
-		  $("#btnenviarsenha").click(function()
+ $("#btnenviarsenha").click(function()
 		  {
 			if (
 					(document.getElementById('edtreenviarsenha').value!='') 
@@ -280,9 +280,8 @@
 			}
 			
 			
-		  });
+		  });		
 		  
-		
 		  $("#btnenviar").click(function(){
 			if (
 					(document.getElementById('edtuser').value!='') &&
@@ -341,11 +340,8 @@
 				);	
 			}
 			
-		  });
-		  
-		  
-		  
-		  
+		  });		  
+
 		   $("#btnregister").click(function(){
 			if (
 					(document.getElementById('edtname').value!='') &&
@@ -407,11 +403,19 @@
 			}
 			
 		  });
+
 		  
+		$(document).ready(function(){
+		
+		   // $("#loginform").slideUp(); // login 
+            $("#recoverform").hide(); // recuperar senha
+            $("#wrapper2").hide();
+			$("#wrapper").show(); // registro
+			$("#loginform").show(); 
+			
+			
 		});
 		
-		 
-	
         $(function() {
             $(".preloader").fadeOut();
         });
@@ -427,7 +431,8 @@
         });
 		
 		$('#to-singup').on("click", function() {
-		
+            $("#wrapper").slideUp();
+            $("#wrapper2").fadeIn();
 			$.post("https://tempustecnologia.com/sulife/controller/exec.residence.php",
 			{
 			  op: "LISTAPP",
@@ -435,10 +440,9 @@
 			},
 			function(data,status){
 				$("#div_residence").html(data); 
-			});		
-		
-            $("#wrapper").slideUp();
-            $("#wrapper2").fadeIn();
+			});				  
+
+			
         });
 
 		$('#to-login').on("click", function() {
