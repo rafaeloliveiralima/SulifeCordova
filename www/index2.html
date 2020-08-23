@@ -281,12 +281,47 @@
 	
 	}
 	let map, infoWindow, lat, lng, latitude, longitude;
+
+	function onSuccess(position) {
+		//alert('onsucess');
+		alert(position.coords.latitude);
+		alert(position.coords.longitude);
+
+/*		var updatedLatitude = position.coords.latitude;
+		var updatedLongitude = position.coords.longitude;
+
+		//if (updatedLatitude != Latitude && updatedLongitude != Longitude) {
+
+			Latitude = updatedLatitude;
+			Longitude = updatedLongitude;
+
+			// Calls function we defined earlier.
+			//getWeather(updatedLatitude, updatedLongitude);
+		//}
+		lat = Latitude;
+		lng = Longitude;
+		// atualizo a situação do contato
+		
+		alert('This alert is only to test if the GPS is ON. Lat: '+lat+ 'Long:'+lng+' ');
+
+		
+		//alert('Latitude: '  + position.coords.latitude+ ' Longitude: ' + position.coords.longitude);
+*/
+	}	
+	
+	function onError(error) {
+		alert('code: '    + error.code    + '\n' +
+			  'message: ' + error.message + '\n');
+	}
+
 	
 	$(document).ready(function(){
 		$("#page_index").load("page_index.html");
 		document.getElementById('div_name').innerHTML=window.localStorage.getItem("name");
 		document.getElementById('pictureMenuUser').src='https://www.tempustecnologia.com/sulife/picture/user/'+window.localStorage.getItem("picture");
+		
 		navigator.geolocation.getCurrentPosition(onSuccess, onError);
+		alert('After getCurrentPosition');
 
 	});	
 	
@@ -1153,33 +1188,7 @@
 
 	var watchID = '';
 
-	function onSuccess(position) {
-		//alert('onsucess');
-		var updatedLatitude = position.coords.latitude;
-		var updatedLongitude = position.coords.longitude;
 
-		//if (updatedLatitude != Latitude && updatedLongitude != Longitude) {
-
-			Latitude = updatedLatitude;
-			Longitude = updatedLongitude;
-
-			// Calls function we defined earlier.
-			//getWeather(updatedLatitude, updatedLongitude);
-		//}
-		lat = Latitude;
-		lng = Longitude;
-		// atualizo a situação do contato
-		
-		alert('This alert is only to test if the GPS is ON. Lat: '+lat+ 'Long:'+lng+' ');
-
-		
-		//alert('Latitude: '  + position.coords.latitude+ ' Longitude: ' + position.coords.longitude);
-	}	
-	
-	function onError(error) {
-		alert('code: '    + error.code    + '\n' +
-			  'message: ' + error.message + '\n');
-	}
 	
 	function getLocation() {
 	  if (navigator.geolocation) {
