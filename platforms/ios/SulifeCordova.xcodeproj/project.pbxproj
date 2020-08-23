@@ -41,6 +41,7 @@
 		B07DB83872F64AEAB19EA679 /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB89E92A5314C26B3DF6561 /* CDVStatusBar.m */; };
 		120AD1D287864C19963037B4 /* CDVVibration.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2513ECD45840558D4DFA91 /* CDVVibration.m */; };
 		A0E59DE1CC86489380B374A8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18189EAABEB24D11AA911F0C /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		3A6EBEAED8984CC08D7A1053 /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 498283D73EA54FC1838E1455 /* CDVDevice.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +137,8 @@
 		BB2513ECD45840558D4DFA91 /* CDVVibration.m */ = {isa = PBXFileReference; name = "CDVVibration.m"; path = "cordova-plugin-vibration/CDVVibration.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		D56D19ED34B84E4A821A3B76 /* CDVVibration.h */ = {isa = PBXFileReference; name = "CDVVibration.h"; path = "cordova-plugin-vibration/CDVVibration.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		18189EAABEB24D11AA911F0C /* AudioToolbox.framework */ = {isa = PBXFileReference; name = "AudioToolbox.framework"; path = "System/Library/Frameworks/AudioToolbox.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		498283D73EA54FC1838E1455 /* CDVDevice.m */ = {isa = PBXFileReference; name = "CDVDevice.m"; path = "cordova-plugin-device/CDVDevice.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		09D3A96F56364402B84A9AD6 /* CDVDevice.h */ = {isa = PBXFileReference; name = "CDVDevice.h"; path = "cordova-plugin-device/CDVDevice.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +297,8 @@
 				4C445AEDFB154614B50CC594 /* CDVStatusBar.h */,
 				BB2513ECD45840558D4DFA91 /* CDVVibration.m */,
 				D56D19ED34B84E4A821A3B76 /* CDVVibration.h */,
+				498283D73EA54FC1838E1455 /* CDVDevice.m */,
+				09D3A96F56364402B84A9AD6 /* CDVDevice.h */,
 			);
 			name = Plugins;
 			path = "SulifeCordova/Plugins";
@@ -439,6 +444,7 @@
 				A427805269B0496DAAFF4F55 /* CDVReachability.m in Sources */,
 				B07DB83872F64AEAB19EA679 /* CDVStatusBar.m in Sources */,
 				120AD1D287864C19963037B4 /* CDVVibration.m in Sources */,
+				3A6EBEAED8984CC08D7A1053 /* CDVDevice.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

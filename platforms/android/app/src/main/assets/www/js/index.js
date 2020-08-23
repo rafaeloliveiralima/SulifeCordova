@@ -16,8 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 var app = {
-    // Application Constructor
+	
+//	var UUID = '',
+	// Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     },
@@ -28,7 +31,15 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
-    },
+		
+		/*alert( 'Device Model: '    + device.model    + '<br />' +
+                        'Device Cordova: '  + device.cordova  + '<br />' +
+                        'Device Platform: ' + device.platform + '<br />' +
+                        'Device UUID: '     + device.uuid     + '<br />' +
+                        'Device Version: '  + device.version  + '<br />');
+		
+		*/
+	},
 
     // Update DOM on a Received Event
     receivedEvent: function(id) {

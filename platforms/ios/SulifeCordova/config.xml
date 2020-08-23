@@ -110,4 +110,7 @@
     <preference name="android-minSdkVersion" value="28" />
     <preference name="phonegap-version" value="cli-8.1.1" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+    <feature name="Device">
+        <param name="ios-package" value="CDVDevice" />
+    </feature>
 </widget>

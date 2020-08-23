@@ -73,6 +73,8 @@
                 <form class="form-horizontal form-material" id="loginform" action="login.html" style="margin: -70px 20px 20px 20px"' >
                     <!--<a href="javascript:void(0)" class="text-center db"><img src="assets/images/logo-icon.png" alt="Home" /><br/><img src="assets/images/logo-text.png" alt="Home" /></a>-->
                     <!--<img src='img/logo.png' width='60px' >-->
+					<div id='deviceProperties'></div>
+					
 					<div class="form-group m-t-40">
                         <div class="col-xs-12">
                             <input class="form-control" name='edtuser' id='edtuser' style='color:white;font-size:1.2em;' type="text" required="" value="" placeholder="Username">
@@ -230,13 +232,15 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
-        //app.initialize();	
-		function alertDismissed()
+	
+		var UUID = '';
+	
+        function alertDismissed()
 		{
 		
 		}
 		
- $("#btnenviarsenha").click(function()
+		  $("#btnenviarsenha").click(function()
 		  {
 			if (
 					(document.getElementById('edtreenviarsenha').value!='') 
@@ -283,16 +287,31 @@
 		  });		
 		  
 		  $("#btnenviar").click(function(){
-			if (
-					(document.getElementById('edtuser').value!='') &&
-					(document.getElementById('edtpassword').value!='')
-				)
-			{			  
+		  
+			  if ((document.getElementById('edtuser').value!='') &&
+			  (document.getElementById('edtpassword').value!=''))
+			  {
+				executaLogin(document.getElementById('edtuser').value,document.getElementById('edtpassword').value,UUID,'MSG');
+			  }
+			  else
+			  {
+				navigator.notification.alert(
+							'Fill in the username and password fields.',  // message
+							alertDismissed,         // callback
+							'Warning',            // title
+							'OK'                  // buttonName
+				);	
+			  }
+			  
+		  });		  
+
+		  function executaLogin(usuario,senha,uuid,msg){
 				$.post("https://tempustecnologia.com/sulife/controller/exec.register.php",
 				{
 				  op: "LOGINAPP",
-				  edtuser: document.getElementById('edtuser').value,
-				  edtpassword: document.getElementById('edtpassword').value
+				  edtuser: usuario,
+				  edtpassword: senha,
+				  UUID: uuid
 				},
 				function(data,status){
 					var res = data.split("|");
@@ -318,30 +337,28 @@
 						window.localStorage.setItem("gender",gender);
 						window.localStorage.setItem("picture",picture);
 						window.location.href = 'index2.html';
+						resp = true;
 					}
 					else
 					{
-						navigator.notification.alert(
-							'Could not log in.',  // message
-							alertDismissed,         // callback
-							'Warning',            // title
-							'OK'                  // buttonName
-						);				
+						if (msg=='MSG')
+						{
+							navigator.notification.alert(
+									'Could not log in.',  // message
+									alertDismissed,         // callback
+									'Warning',            // title
+									'OK'                  // buttonName
+							);
+						}
+						resp = false;
 					}
+					return resp;
+				
 				});
-			}
-			else
-			{
-				navigator.notification.alert(
-							'Fill in the username and password fields.',  // message
-							alertDismissed,         // callback
-							'Warning',            // title
-							'OK'                  // buttonName
-				);	
-			}
-			
-		  });		  
-
+				
+		  }
+		  
+		  
 		   $("#btnregister").click(function(){
 			if (
 					(document.getElementById('edtname').value!='') &&
@@ -412,6 +429,29 @@
             $("#wrapper2").hide();
 			$("#wrapper").show(); // registro
 			$("#loginform").show(); 
+			
+			document.addEventListener("deviceready", onDeviceReady, false);
+
+			function onDeviceReady() {
+			
+				//document.getElementById('checkUUID').value=='F')
+				UUID =  device.uuid;
+				
+				//var element = document.getElementById('deviceProperties');
+				
+				/*element.innerHTML = 'Device Model: '    + device.model    + '<br />' +
+									'Device Cordova: '  + device.cordova  + '<br />' +
+									'Device Platform: ' + device.platform + '<br />' +
+									'Device UUID: '     + device.uuid     + '<br />' +
+									'Device Version: '  + device.version  + '<br />';
+				*/					
+				if (executaLogin('','',UUID,''))
+				{
+					document.getElementById('loginform').submit();
+				}
+				
+			}
+
 			
 			
 		});
