@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "353489349669",
+    "firebase_url": "https://sulife-b9219.firebaseio.com",
+    "project_id": "sulife-b9219",
+    "storage_bucket": "sulife-b9219.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353489349669:android:af618d18ea737cf45fe3cc",
+        "android_client_info": {
+          "package_name": "com.tecnologia.sulife2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "353489349669-119nol0g277oip9io867psj7vev5um6r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDH658SIlCkIPWyHZIplaF3G7e1afYZJQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "353489349669-119nol0g277oip9io867psj7vev5um6r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
