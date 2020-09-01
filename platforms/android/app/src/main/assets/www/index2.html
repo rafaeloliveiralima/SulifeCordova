@@ -919,8 +919,16 @@
 					center: { lat: -33.9329023, lng: 18.8569261 },
 					zoom: 15
 				});
+				
+				 map.data.loadGeoJson('google.json');
+				 map.data.addListener("click", event => {
+					 letter = event.feature.getProperty("letter");
+					 alert(letter);
+				 });
+				 
+				 
   
-const outerCoords = [
+				const outerCoords = [
 					{ lat: -33.930931, lng: 18.866530 },
 					{ lat: -33.930865, lng: 18.867105 },
 					{ lat: -33.931143, lng: 18.867131 },
@@ -1003,12 +1011,9 @@ const outerCoords = [
 						infoWindow.setContent(contentString);
 						infoWindow.setPosition(ne);
 						infoWindow.open(map);
-					
-					
-						//alert("Mike de Vries\nChemistry - First-years\nInoganic Chemistry\nCGW Shumann");
 					});				
     
-  
+				
   
 				  const input = document.getElementById("pac-input");
 				  input.value=busca;
