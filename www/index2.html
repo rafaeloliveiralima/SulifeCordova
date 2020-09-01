@@ -920,6 +920,95 @@
 					zoom: 15
 				});
   
+const outerCoords = [
+					{ lat: -33.930931, lng: 18.866530 },
+					{ lat: -33.930865, lng: 18.867105 },
+					{ lat: -33.931143, lng: 18.867131 },
+					{ lat: -33.931214, lng: 18.866592 } // north east
+				  ];
+				  
+				  const outerCoords2 = [
+				  { lat: -33.931580, lng: 18.866724},
+				  { lat: -33.931483, lng: 18.867573},
+				  { lat: -33.932576, lng: 18.867752},
+				  { lat: -33.932571, lng: 18.867559},
+				  { lat: -33.932285, lng: 18.867492},
+				  { lat: -33.932350, lng: 18.867015},
+				  { lat: -33.932610, lng: 18.867052},
+				  { lat: -33.932619, lng: 18.866872}
+				  ];
+				  
+				  // Define the LatLng coordinates for an inner path.
+				  const security = new google.maps.Polygon({
+					paths: outerCoords,
+					strokeColor: "#FF0000",
+					strokeOpacity: 0.8,
+					strokeWeight: 2,
+					fillColor: "#FF0000",
+					fillOpacity: 0.35
+				  });  
+				  
+				  security.setMap(map);
+				  
+				  const mike = new google.maps.Polygon({
+					paths: outerCoords2,
+					strokeColor: "#0000FF",
+					strokeOpacity: 0.8,
+					strokeWeight: 2,
+					fillColor: "#FF0000",
+					fillOpacity: 0.35
+				  }); 
+				  
+				  mike.setMap(map);
+
+					google.maps.event.addListener(security, 'click', function (event) {
+						const ne = security.getBounds().getNorthEast();
+						const sw = security.getBounds().getSouthWest();
+						const contentString =
+						"<b>Campus Security</b><br>" +
+						"New north-east corner: " +
+						ne.lat() +
+						", " +
+						ne.lng() +
+						"<br>" +
+						"New south-west corner: " +
+						sw.lat() +
+						", " +
+						sw.lng();
+					  // Set the info window's content and position.
+						infoWindow.setContent(contentString);
+						infoWindow.setPosition(ne);
+						infoWindow.open(map);
+					
+					
+					
+						//alert("Campus Security");
+					});
+					
+					google.maps.event.addListener(mike, 'click', function (event) {
+					const ne = mike.getBounds().getNorthEast();
+						const sw = mike.getBounds().getSouthWest();
+						const contentString =
+						"<b>Mike de Vries\nChemistry - First-years\nInoganic Chemistry\nCGW Shumann</b><br>" +
+						"New north-east corner: " +
+						ne.lat() +
+						", " +
+						ne.lng() +
+						"<br>" +
+						"New south-west corner: " +
+						sw.lat() +
+						", " +
+						sw.lng();
+					  // Set the info window's content and position.
+						infoWindow.setContent(contentString);
+						infoWindow.setPosition(ne);
+						infoWindow.open(map);
+					
+					
+						//alert("Mike de Vries\nChemistry - First-years\nInoganic Chemistry\nCGW Shumann");
+					});				
+    
+  
   
 				  const input = document.getElementById("pac-input");
 				  input.value=busca;
